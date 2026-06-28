@@ -1,0 +1,215 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.CountryInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #a5a4a4;
+  padding-bottom: 40px;
+}
+
+h1 {
+  font-size: 60px;
+  font-weight: bolder;
+  letter-spacing: 5px;
+  word-spacing: 10px;
+  color: white;
+}
+
+h2 {
+  letter-spacing: 2px;
+  word-spacing: 4px;
+}
+
+h3 {
+  color: orange;
+  margin-top: 10px;
+  font-size: 20px;
+  display: none;
+}
+
+#NumOfCo {
+  padding: 5px;
+  font-weight: bolder;
+  border-bottom: solid 2px #3f064c;
+}
+
+.searchSec {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.SerachTool {
+  background-color: #ffffff00;
+  border: none;
+  width: 40px;
+  height: 40px;
+}
+
+.butGroup {
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 15px;
+  gap: 20px;
+}
+
+.butGroup > button {
+  background-color: orange;
+  width: 150px;
+  height: 40px;
+  border-radius: 25px;
+  font-weight: 200;
+}
+
+.but {
+  width: auto;
+  height: 50px;
+  font-size: 30px;
+  background-color: #620078;
+  color: white;
+  padding: 10px;
+}
+
+.but .active {
+  background-color: #30033a;
+}
+
+#SerchBox {
+  box-shadow: #3b3bb4af;
+
+  border-radius: 25px;
+  background-color: white;
+  width: 700px;
+  height: 40px;
+  text-align: center;
+  font-size: 30px;
+}
+
+#outputFlag {
+  width: 100%;
+  height: auto;
+  background-color: #a5a4a4;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  padding: 10px;
+}
+
+.GridElement {
+  height: 200px;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  font-size: 15px;
+  background: white url(none) no-repeat center / cover;
+  margin: 15px;
+  padding: 15px;
+}
+.GridElement > .CountryName {
+  color: orange;
+  text-align: center;
+  width: 100%;
+}
+
+.GridElement > img {
+  background: white url(assets/Image/map_image.jpg) no-repeat center / cover;
+  height: 80px;
+  width: 130px;
+  align-self: center;
+}
+
+.countrieDescription {
+  width: 90%;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+#outputstatistics {
+  background-color: #888585;
+  box-shadow: #fffdfd79;
+  margin: 0px 30px 40px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+}
+
+.ButstGroup {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.ButstGroup > button {
+  width: 140px;
+  height: 40px;
+  background-color: orange;
+}
+
+#statisticsgroup {
+  height: auto;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.displayRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 50px;
+  margin: 20px 40px;
+  width: 100%;
+}
+
+.MaxContant {
+  width: 20%;
+  height: 80px;
+}
+
+.reslttext {
+  color: #0000009d;
+  font-size: 25px;
+  font-weight: bolder;
+  height: 40px;
+  margin: 10px 0% 10px 40px;
+  white-space: normal;
+  max-width: 15%;
+}
+
+.prograssbar {
+  width: 60%;
+  height: 40px;
+}
+
+.bar {
+  background-color: orange;
+  height: 40px;
+  width: 100%;
+}
+
+button:active {
+  color: white;
+  background-color: black;
+}

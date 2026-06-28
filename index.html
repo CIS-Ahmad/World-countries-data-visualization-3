@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <section class="CountryInfo">
+        <h1 class="searchElem">WORLD COUNTRIES Data</h1>
+
+        <h2>Total Number Of Countries:&nbsp;<span id="NumOfCo">188</span></h2>
+
+        <h3 id="totalAfterSearch">
+          <span id="NumberofCuninserach">43</span>&nbsp;countries satsified the
+          search criteria
+        </h3>
+      </section>
+
+      <section class="searchSec">
+        <input
+          type="text"
+          id="SerchBox"
+          placeholder="search by name, capital city or languages"
+        />
+        <div class="butGroup" id="butGroup"></div>
+      </section>
+
+      <section id="outputFlag"></section>
+
+      <section id="outputstatistics">
+        <div class="ButstGroup" id="ButstGroup"></div>
+        <div id="statisticsgroup"></div>
+      </section>
+    </main>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
