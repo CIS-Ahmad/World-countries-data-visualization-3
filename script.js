@@ -134,7 +134,7 @@ function createFlagElements() {
   }
 }
 
-function createStatisticsPopulationElement(id) {
+function createStatisticsElement(id, name, total, max = 0) {
   createElement("div", "displayRow", `displayRow${id}`, "", "statisticsgroup");
   createElement(
     "div",
@@ -143,25 +143,21 @@ function createStatisticsPopulationElement(id) {
     "",
     `displayRow${id}`,
   );
-  createElement(
-    "p",
-    "reslttext",
-    "",
-    `${FILTER_COUNTRIES[id].name}`,
-    `MaxContant1-${id}`,
-  );
+  createElement("p", "reslttext", "", name, `MaxContant1-${id}`);
   createElement(
     "div",
     "prograssbar",
-    `prograssbar1-${id}`,
+    `prograssbar2-${id}`,
     "",
     `displayRow${id}`,
   );
 
-  const prograssbar = createElement("p", "bar", "", "", `prograssbar1-${id}`);
-  prograssbar.style.width =
-    Math.ceil((FILTER_COUNTRIES[id].population / getTotalPepole()) * 100) + "%";
+  const prograssbar = createElement("p", "bar", "", "", `prograssbar2-${id}`);
 
+  if (max) prograssbar.style.width = (total / max) * 100 + "%";
+  else {
+    prograssbar.style.width = Math.ceil((total / getTotalPepole()) * 100) + "%";
+  }
   createElement(
     "div",
     "MaxContant",
@@ -169,31 +165,20 @@ function createStatisticsPopulationElement(id) {
     "",
     `displayRow${id}`,
   );
-  createElement(
-    "p",
-    "reslttext",
-    "",
-    `${FILTER_COUNTRIES[id].population}`,
-    `MaxContant2-${id}`,
-  );
+  createElement("p", "reslttext", "", total, `MaxContant2-${id}`);
 }
 
 function createStatisticsPopulationElements() {
   getElementUsingID("statisticsgroup").innerHTML = "";
   SortCountrys("");
-  {
-    createElement("div", "displayRow", `displayRow`, "", "statisticsgroup");
-    createElement("div", "MaxContant", `MaxContant1`, "", `displayRow`);
-    createElement("p", "reslttext", "", `World`, `MaxContant1`);
-    createElement("div", "prograssbar", `prograssbar1`, "", `displayRow`);
-    const prograssbar = createElement("p", "bar", "", "", `prograssbar1`);
-    prograssbar.style.width = "100%";
 
-    createElement("div", "MaxContant", `MaxContant2`, "", `displayRow`);
-    createElement("p", "reslttext", "", `${getTotalPepole()}`, `MaxContant2`);
-  }
+  createStatisticsElement(-1, "world", getTotalPepole());
   for (let index = 0; index < FILTER_COUNTRIES.length; index++) {
-    createStatisticsPopulationElement(index);
+    createStatisticsElement(
+      index,
+      FILTER_COUNTRIES[index].name,
+      FILTER_COUNTRIES[index].population,
+    );
   }
 }
 
@@ -215,43 +200,11 @@ function sortLang() {
     .sort((a, b) => b.total - a.total);
 }
 
-function createStatisticslanguageElement(id, name, total, max) {
-  createElement("div", "displayRow", `displayRow${id}`, "", "statisticsgroup");
-  createElement(
-    "div",
-    "MaxContant",
-    `MaxContant1-${id}`,
-    "",
-    `displayRow${id}`,
-  );
-  createElement("p", "reslttext", "", name, `MaxContant1-${id}`);
-  createElement(
-    "div",
-    "prograssbar",
-    `prograssbar2-${id}`,
-    "",
-    `displayRow${id}`,
-  );
-
-  const prograssbar = createElement("p", "bar", "", "", `prograssbar2-${id}`);
-
-  prograssbar.style.width = (total / max) * 100 + "%";
-
-  createElement(
-    "div",
-    "MaxContant",
-    `MaxContant2-${id}`,
-    "",
-    `displayRow${id}`,
-  );
-  createElement("p", "reslttext", "", total, `MaxContant2-${id}`);
-}
-
 function createStatisticslanguageElements() {
   getElementUsingID("statisticsgroup").innerHTML = "";
   const Lang = sortLang();
   for (let index = 0; index < Lang.length; index++) {
-    createStatisticslanguageElement(
+    createStatisticsElement(
       index,
       Lang[index].name,
       Lang[index].total,
@@ -276,19 +229,23 @@ function logicDisplayFunction() {
   Display();
 }
 
+function createMainBtnWithEvent(btnName) {
+  const btn = createElement("button", "", "", btnName, "butGroup");
+
+  btn.addEventListener("click", () => {
+    SortCountrys(btnName);
+    logicDisplayFunction();
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   getElementUsingID("NumOfCo").textContent = countries.length;
   getElementUsingID("totalAfterSearch").style.display = "none";
 
-  const btnName = createElement("button", "", "", "Name", "butGroup");
-  const btnCapital = createElement("button", "", "", "Capital", "butGroup");
-  const btnPopulations = createElement(
-    "button",
-    "",
-    "",
-    "populations",
-    "butGroup",
-  );
+  createMainBtnWithEvent("Name");
+  createMainBtnWithEvent("Capital");
+  createMainBtnWithEvent("populations");
+
   const imgLink = createElement("a", "", "imgLink", "", "butGroup");
   imgLink.href = "#outputstatistics";
   const img = createElement("img", "", "", "", "imgLink");
@@ -302,20 +259,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "ButstGroup",
   );
 
-  btnName.addEventListener("click", () => {
-    SortCountrys("Name");
-    logicDisplayFunction();
-  });
-  btnCapital.addEventListener("click", () => {
-    SortCountrys("Capital");
-    logicDisplayFunction();
-  });
-
-  btnPopulations.addEventListener("click", () => {
-    SortCountrys("Populations");
-    logicDisplayFunction();
-  });
-
   btnLanguage.addEventListener("click", () => {
     createStatisticslanguageElements();
   });
@@ -324,7 +267,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const serachTool = getElementUsingID("SerchBox");
-
   serachTool.addEventListener("input", () => {
     applyFiltersOnData(serachTool.value);
 
