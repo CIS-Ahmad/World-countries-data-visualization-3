@@ -278,6 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
     logicDisplayFunction();
   });
 });
+
 logicDisplayFunction();
 
 /*
