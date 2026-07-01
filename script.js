@@ -1,4 +1,4 @@
-import { countries } from "./data.js";
+import { countries } from "./assets/Data/data.js";
 let Asce = true;
 let FILTER_COUNTRIES = [...countries];
 
