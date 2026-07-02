@@ -1,5 +1,5 @@
-import { countries } from "./assets/Data/data.js";
-let Asce = true;
+import { countries } from "./const/Data/data.js";
+let isAscending = true;
 let FILTER_COUNTRIES = [...countries];
 
 function getElementUsingID(ID) {
@@ -40,26 +40,29 @@ function applyFiltersOnData(pre) {
     return;
   }
 
-  pre = pre.toLowerCase();
-  let tempCountries = [...countries];
+  const query = pre.toLowerCase();
 
-  FILTER_COUNTRIES = tempCountries.filter((c) =>
-    c.name.toLowerCase().startsWith(pre),
-  );
-  tempCountries = tempCountries.filter(
-    (c) => !c.name.toLowerCase().startsWith(pre),
-  );
-  FILTER_COUNTRIES.push(
-    ...tempCountries.filter((c) => c.capital?.toLowerCase().startsWith(pre)),
-  );
-  tempCountries = tempCountries.filter(
-    (c) => !c.capital?.toLowerCase().startsWith(pre),
-  );
-  FILTER_COUNTRIES.push(
-    ...tempCountries.filter((c) =>
-      c.languages.some((lang) => lang.toLowerCase().startsWith(pre)),
-    ),
-  );
+  const buckets = {
+    name: [],
+    capital: [],
+    language: [],
+  };
+
+  for (const country of countries) {
+    const name = country.name?.toLowerCase() ?? "";
+    const capital = country.capital?.toLowerCase() ?? "";
+    const languages = country.languages ?? [];
+
+    if (name.startsWith(query)) {
+      buckets.name.push(country);
+    } else if (capital.startsWith(query)) {
+      buckets.capital.push(country);
+    } else if (languages.some((lang) => lang.toLowerCase().startsWith(query))) {
+      buckets.language.push(country);
+    }
+  }
+
+  FILTER_COUNTRIES = [...buckets.name, ...buckets.capital, ...buckets.language];
 }
 
 function getTotalPepole() {
@@ -68,11 +71,11 @@ function getTotalPepole() {
 
 function SortCountrys(btnName) {
   if (btnName === "Name") {
-    FILTER_COUNTRIES = Asce
+    FILTER_COUNTRIES = isAscending
       ? FILTER_COUNTRIES.sort((a, b) => a.name.localeCompare(b.name))
       : FILTER_COUNTRIES.sort((a, b) => b.name.localeCompare(a.name));
   } else if (btnName === "Capital") {
-    FILTER_COUNTRIES = Asce
+    FILTER_COUNTRIES = isAscending
       ? FILTER_COUNTRIES.sort((a, b) =>
           (a.capital ?? "").localeCompare(b.capital ?? ""),
         )
@@ -80,7 +83,7 @@ function SortCountrys(btnName) {
           (b.capital ?? "").localeCompare(a.capital ?? ""),
         );
   } else {
-    FILTER_COUNTRIES = Asce
+    FILTER_COUNTRIES = isAscending
       ? FILTER_COUNTRIES.sort((a, b) => a.population - b.population)
       : FILTER_COUNTRIES.sort((a, b) => b.population - a.population);
   }
@@ -221,10 +224,10 @@ function Display() {
 }
 
 function logicDisplayFunction() {
-  if (Asce) {
-    Asce = false;
+  if (isAscending) {
+    isAscending = false;
   } else {
-    Asce = true;
+    isAscending = true;
   }
   Display();
 }
